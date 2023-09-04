@@ -24,12 +24,18 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        run: |
-          git config --global user.name "lauri-kaariainen"
-          git config --global user.email "not@real.com"
-          npm install -g gh-pages
-          gh-pages -d build -b gh-pages
+      # - name: Deploy to GitHub Pages
+      #   run: |
+      #     git config --global user.name "lauri-kaariainen"
+      #     git config --global user.email "not@real.com"
+      #     npm install -g gh-pages
+      #     gh-pages -d build -b gh-pages
+      
+      - name: Deploy to GH Pages 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
 
       - name: Cleanup
         run: rm -rf node_modules
