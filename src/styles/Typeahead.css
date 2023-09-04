@@ -4,6 +4,7 @@
   justify-content:left;
   padding: 8px;
   cursor: pointer;
+  font-family: monospace;
 }
 
 .bird-image {

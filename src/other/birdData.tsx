@@ -1,4 +1,4 @@
-import { BirdOption } from "./components/Typeahead";
+import { BirdOption } from "../components/Typeahead";
 export const birdData: BirdOption[] = [
     {
       value: "sparrow",

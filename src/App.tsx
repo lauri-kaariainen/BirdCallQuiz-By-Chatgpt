@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import AudioPlayer from "./components/AudioPlayer"; // Adjust the import path
 import Typeahead, { BirdOption } from "./components/Typeahead"; // Import BirdOption from Typeahead
-import { birdData } from "./birdData";
+import { birdData } from "./other/birdData";
+import { logo } from "./other/logo";
+import "./styles/App.css";
 
 
 const App: React.FC = () => {
@@ -26,16 +28,6 @@ const App: React.FC = () => {
     }
   }, []);
 
-  // const toggleAudio = () => {
-  //   if (audioRef.current) {
-  //     if (isAudioPlaying) {
-  //       audioRef.current.pause();
-  //     } else {
-  //       audioRef.current.play();
-  //     }
-  //     setIsAudioPlaying(!isAudioPlaying);
-  //   }
-  // };
   const toggleAudio = () => {
     if (!audioStarted) {
       playRandomBirdSound();
@@ -83,8 +75,10 @@ const App: React.FC = () => {
   };
   return (
     <div className="app">
-      <h1>Bird Call Quiz App</h1>
       <div className="quiz-container">
+        <h4>
+          <pre>{logo}</pre>
+        </h4>
         {selectedBird ? (
           <div className="bird-details">
             <AudioPlayer
@@ -98,7 +92,7 @@ const App: React.FC = () => {
         ) : (
           <div className="bird-details">
             <button onClick={toggleAudio}>
-              {isAudioPlaying ? "Pause Sound" : "Play Sound"}
+              {isAudioPlaying ? "[ Pause Sound ]" : "[  Play Sound  ]"}
             </button>
           </div>
         )}
@@ -106,9 +100,9 @@ const App: React.FC = () => {
           <Typeahead options={birdData} onSelect={handleGuessSubmit} />
           <p>{feedback}</p>
         </div>
-      </div>
-      <div className="score">
-        <p>Score: {score}</p>
+        <div className="score">
+          <p>Score: {score}</p>
+        </div>
       </div>
     </div>
   );
