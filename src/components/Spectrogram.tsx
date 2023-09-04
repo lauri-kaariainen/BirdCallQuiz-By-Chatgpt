@@ -1,3 +1,5 @@
+/* NOT IN USE */
+
 import React, { useEffect, useRef } from "react";
 import { Stage, Sprite, useTick, Graphics } from "@inlet/react-pixi";
 
@@ -6,7 +8,7 @@ interface SpectrogramProps {
 }
 
 const Spectrogram: React.FC<SpectrogramProps> = ({ audio }) => {
- // @ts-ignore
+  // @ts-ignore
   const containerRef = useRef<PIXI.Container | null>(null);
 
   useEffect(() => {
