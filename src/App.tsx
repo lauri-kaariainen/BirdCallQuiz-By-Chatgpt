@@ -1,108 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import AudioPlayer from "./components/AudioPlayer"; // Adjust the import path
 import Typeahead, { BirdOption } from "./components/Typeahead"; // Import BirdOption from Typeahead
+import { birdData } from "./birdData";
 
-const birdData: BirdOption[] = [
-  {
-    value: "sparrow",
-    labelEN: "Sparrow",
-    labelFI: "Varpunen",
-    image: "sparrow.jpg",
-    audio: "sparrow.mp3"
-  },
-  {
-    value: "eagle",
-    labelEN: "Eagle",
-    labelFI: "Kotka",
-    image: "eagle.jpg",
-    audio: "eagle.mp3"
-  },
-  {
-    value: "hawk",
-    labelEN: "Hawk",
-    labelFI: "Haukka",
-    image: "hawk.jpg",
-    audio: "hawk.mp3"
-  },
-  {
-    value: "robin",
-    labelEN: "Robin",
-    labelFI: "Punarinta",
-    image: "robin.jpg",
-    audio: "robin.mp3"
-  },
-  {
-    value: "bluejay",
-    labelEN: "Blue Jay",
-    labelFI: "Sinitiainen",
-    image: "bluejay.jpg",
-    audio: "bluejay.mp3"
-  },
-  {
-    value: "dove",
-    labelEN: "Dove",
-    labelFI: "Kyyhky",
-    image: "dove.jpg",
-    audio: "dove.mp3"
-  },
-  {
-    value: "pigeon",
-    labelEN: "Pigeon",
-    labelFI: "Kyyhkynen",
-    image: "pigeon.jpg",
-    audio: "pigeon.mp3"
-  },
-  {
-    value: "owl",
-    labelEN: "Owl",
-    labelFI: "Pöllö",
-    image: "owl.jpg",
-    audio: "owl.mp3"
-  },
-  {
-    value: "crow",
-    labelEN: "Crow",
-    labelFI: "Varis",
-    image: "crow.jpg",
-    audio: "crow.mp3"
-  },
-  {
-    value: "woodpecker",
-    labelEN: "Woodpecker",
-    labelFI: "Tikka",
-    image: "woodpecker.jpg",
-    audio: "woodpecker.mp3"
-  },
-  {
-    value: "parrot",
-    labelEN: "Parrot",
-    labelFI: "Papukaija",
-    image: "parrot.jpg",
-    audio: "parrot.mp3"
-  },
-  {
-    value: "finch",
-    labelEN: "Finch",
-    labelFI: "Peippo",
-    image: "finch.jpg",
-    audio: "finch.mp3"
-  },
-  {
-    value: "canary",
-    labelEN: "Canary",
-    labelFI: "Kanarialintu",
-    image: "canary.jpg",
-    audio: "canary.mp3"
-  },
-  {
-    value: "swan",
-    labelEN: "Swan",
-    labelFI: "Joutsen",
-    image: "swan.jpg",
-    audio: "swan.mp3"
-  }
-  // Add more bird options with images and audio paths here
-];
 
 const App: React.FC = () => {
   const [selectedBird, setSelectedBird] = useState<BirdOption | null>(null);
@@ -110,7 +10,13 @@ const App: React.FC = () => {
   const [feedback, setFeedback] = useState("");
   const [score, setScore] = useState(0);
   const [audioPlaying, setAudioPlaying] = useState(false); // Lift the state up to App component
+  const [audioStarted, setAudioStarted] = useState(false);
+
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+
 
   useEffect(() => {
     if (audioRef.current) {
@@ -119,6 +25,32 @@ const App: React.FC = () => {
       });
     }
   }, []);
+
+  // const toggleAudio = () => {
+  //   if (audioRef.current) {
+  //     if (isAudioPlaying) {
+  //       audioRef.current.pause();
+  //     } else {
+  //       audioRef.current.play();
+  //     }
+  //     setIsAudioPlaying(!isAudioPlaying);
+  //   }
+  // };
+  const toggleAudio = () => {
+    if (!audioStarted) {
+      playRandomBirdSound();
+      setAudioStarted(true);
+    } else {
+      if (audioRef.current) {
+        if (isAudioPlaying) {
+          audioRef.current.pause();
+        } else {
+          audioRef.current.play();
+        }
+        setIsAudioPlaying(!isAudioPlaying);
+      }
+    }
+  };
 
   const playRandomBirdSound = () => {
     const randomBird = birdData[Math.floor(Math.random() * birdData.length)];
@@ -134,44 +66,39 @@ const App: React.FC = () => {
 
   const handleGuessSubmit = (selectedOption: BirdOption | null) => {
     if (selectedBird && selectedOption) {
-      if (
-        selectedBird.value.toLowerCase() === selectedOption.value.toLowerCase()
-      ) {
+      if (selectedBird.value.toLowerCase() === selectedOption.value.toLowerCase()) {
         setFeedback("Correct! It was a " + selectedBird.labelEN);
         setScore(score + 1);
-        if (audioPlaying && audioRef.current) {
-          audioRef.current.pause();
-          setAudioPlaying(false);
-        }
-        playRandomBirdSound();
       } else {
         setFeedback("Incorrect. Try again.");
+        setScore(score - 1); // Deduct a point for incorrect guesses
       }
+  
+      if (audioPlaying && audioRef.current) {
+        audioRef.current.pause();
+        setAudioPlaying(false);
+      }
+      playRandomBirdSound();
     }
   };
-
   return (
     <div className="app">
       <h1>Bird Call Quiz App</h1>
       <div className="quiz-container">
         {selectedBird ? (
           <div className="bird-details">
-            <AudioPlayer audio={selectedBird.audio} ref={audioRef} />
+            <AudioPlayer
+              audio={selectedBird.audio}
+              ref={audioRef}
+              onToggle={toggleAudio}
+              isPlaying={isAudioPlaying}
+            />
             <img src={selectedBird.image} alt={selectedBird.labelEN} />
           </div>
         ) : (
           <div className="bird-details">
-            <button
-              onClick={
-                audioPlaying
-                  ? () => {
-                      audioRef.current?.pause();
-                      setAudioPlaying(false);
-                    }
-                  : playRandomBirdSound
-              }
-            >
-              {audioPlaying ? "Pause" : "Play Sound"}
+            <button onClick={toggleAudio}>
+              {isAudioPlaying ? "Pause Sound" : "Play Sound"}
             </button>
           </div>
         )}
@@ -185,6 +112,6 @@ const App: React.FC = () => {
       </div>
     </div>
   );
-};
+  }
 
 export default App;

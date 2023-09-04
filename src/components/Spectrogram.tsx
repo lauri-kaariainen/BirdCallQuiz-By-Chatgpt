@@ -6,6 +6,7 @@ interface SpectrogramProps {
 }
 
 const Spectrogram: React.FC<SpectrogramProps> = ({ audio }) => {
+ // @ts-ignore
   const containerRef = useRef<PIXI.Container | null>(null);
 
   useEffect(() => {

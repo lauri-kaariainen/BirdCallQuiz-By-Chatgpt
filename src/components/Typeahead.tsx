@@ -20,7 +20,7 @@ const Typeahead: React.FC<TypeaheadProps> = ({ options, onSelect }) => {
     console.log("in handlechange", selectedOption, onSelect);
     onSelect(selectedOption);
   };
-
+  // @ts-ignore
   const CustomOption = ({ data, innerProps }) => {
     // You can access the option data using the 'data' prop
     const { value, customProperty } = data;
