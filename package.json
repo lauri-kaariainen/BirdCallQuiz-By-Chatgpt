@@ -4,6 +4,7 @@
   "description": "",
   "keywords": [],
   "main": "src/index.tsx",
+  "homepage": ".",
   "dependencies": {
     "loader-utils": "3.2.1",
     "react": "18.2.0",
