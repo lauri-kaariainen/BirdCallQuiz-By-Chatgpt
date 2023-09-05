@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main":"public/index.html",
+  "main":"public/index.tsx",
   "homepage": "https://lauri-kaariainen.github.io/BirdCallQuiz-By-Chatgpt/",
   "dependencies": {
     "loader-utils": "3.2.1",
