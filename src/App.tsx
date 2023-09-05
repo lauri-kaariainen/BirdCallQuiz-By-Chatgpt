@@ -87,7 +87,7 @@ const App: React.FC = () => {
               onToggle={toggleAudio}
               isPlaying={isAudioPlaying}
             />
-            <img src={selectedBird.image} alt={selectedBird.labelEN} />
+            {/* <img src={selectedBird.image} alt={selectedBird.labelEN} /> */}
           </div>
         ) : (
           <div className="bird-details">
