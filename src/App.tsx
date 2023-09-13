@@ -50,7 +50,7 @@ const App: React.FC = () => {
     setUserGuess("");
     setFeedback("");
     if (audioRef.current) {
-      audioRef.current.src = "/audio/" + randomBird.audio;
+      audioRef.current.src = "./audio/" + randomBird.audio;
       audioRef.current.play();
       setAudioPlaying(true);
     }

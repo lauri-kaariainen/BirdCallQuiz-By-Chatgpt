@@ -26,7 +26,7 @@ const AudioPlayer = forwardRef<HTMLAudioElement, AudioPlayerProps>(
             }
           }}
         >
-          <source src={"/audio/" + audio} type="audio/mpeg" />
+          <source src={"./audio/" + audio} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
         <button onClick={onToggle}>
