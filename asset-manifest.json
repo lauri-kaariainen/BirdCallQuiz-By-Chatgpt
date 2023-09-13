@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/BirdCallQuiz-By-Chatgpt/static/css/main.124d3501.css",
-    "main.js": "/BirdCallQuiz-By-Chatgpt/static/js/main.5e29130a.js",
+    "main.js": "/BirdCallQuiz-By-Chatgpt/static/js/main.e3e26e21.js",
     "index.html": "/BirdCallQuiz-By-Chatgpt/index.html",
     "main.124d3501.css.map": "/BirdCallQuiz-By-Chatgpt/static/css/main.124d3501.css.map",
-    "main.5e29130a.js.map": "/BirdCallQuiz-By-Chatgpt/static/js/main.5e29130a.js.map"
+    "main.e3e26e21.js.map": "/BirdCallQuiz-By-Chatgpt/static/js/main.e3e26e21.js.map"
   },
   "entrypoints": [
     "static/css/main.124d3501.css",
-    "static/js/main.5e29130a.js"
+    "static/js/main.e3e26e21.js"
   ]
 }
